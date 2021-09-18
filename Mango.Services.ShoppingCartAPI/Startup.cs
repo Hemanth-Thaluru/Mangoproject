@@ -16,6 +16,7 @@ using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using Microsoft.IdentityModel.Tokens;
 using Mango.Services.ShoppingCartAPI.Repository;
+using Mango.MessageBus;
 
 namespace Mango.Services.ShoppingCartAPI
 {
@@ -40,6 +41,7 @@ namespace Mango.Services.ShoppingCartAPI
             services.AddSingleton(mapper);
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<ICartRepository, CartRepository>();
+            services.AddSingleton<IMessageBus, AzureServiceBusMessageBus>();
             services.AddControllers();
             services.AddAuthentication("Bearer").AddJwtBearer("Bearer", options =>
             {
